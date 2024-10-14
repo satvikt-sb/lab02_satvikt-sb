@@ -9,7 +9,6 @@
 using namespace std;
 
 class IntBST {
-
  public:
     // ctor, dtor, insert and one print method already done in intbst.cpp:
     IntBST();                   // constructor
@@ -30,12 +29,11 @@ class IntBST {
     bool remove(int value);                    // deletes the Node containing the given value from the tree
 
  private:
-
     struct Node {
-	int info;
-	Node *left, *right, * parent;
-	// useful constructor:
-    Node(int v=0) : info(v), left(0), right(0), parent(0) { }
+        int info;
+        Node *left, *right, * parent;
+        // useful constructor:
+        Node(int v=0) : info(v), left(0), right(0), parent(0) { }
     };
 
     // just one instance variable (pointer to root node):
@@ -53,7 +51,7 @@ class IntBST {
 
     // these should be used by getPredecessor and getSuccessor, and ONE of them should be used by remove
     Node* getSuccessorNode(int value) const;   // returns the Node containing the successor of the given value
-    Node* getPredecessorNode(int value) const; // returns the Node containing the predecessor of the given value 
+    Node* getPredecessorNode(int value) const; // returns the Node containing the predecessor of the given value
 };
 
-#endif
+#endif // INTBST_H
