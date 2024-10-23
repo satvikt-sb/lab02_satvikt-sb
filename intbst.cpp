@@ -1,6 +1,6 @@
 // intbst.cpp
 // Implements class IntBST
-// YOUR NAME(S), DATE
+// Satvik Talchuru, October 21, 2024
 
 #include "intbst.h"
 
@@ -8,60 +8,101 @@
 using std::cout;
 
 // constructor sets up empty tree
-IntBST::IntBST() { 
+IntBST::IntBST() : root(nullptr) { 
 
 }
 
 // destructor deletes all nodes
 IntBST::~IntBST() {
-
+    clear();
 }
 
 // recursive helper for destructor
 void IntBST::clear(Node *n) {
-
+    if (n != nullptr) {
+        clear(n->left);
+        clear(n->right);
+        delete n;
+    }
 }
 
 // insert value in tree; return false if duplicate
 bool IntBST::insert(int value) {
-    return false; // REPLACE THIS NON-SOLUTION
+    if (root == nullptr) {
+        root = new Node(value);
+        return true;
+    } else {
+        return insert(value, root);
+    }
 }
 
 // recursive helper for insert (assumes n is never 0)
 bool IntBST::insert(int value, Node *n) {
-    return false; // REPLACE THIS NON-SOLUTION
+    if (value == n->info) {
+        return false;
+    } else if (value < n->info) {
+        if (n->left == nullptr) {
+            n->left = new Node(value);
+            return true;
+        } else {
+            return insert(value, n->left);
+        }
+    } else {
+        if (n->right == nullptr) {
+            n->right = new Node(value);
+            return true;
+        } else {
+            return insert(value, n->right);
+        }
+    }
 }
 
 // print tree data pre-order
 void IntBST::printPreOrder() const {
-    cout << "IMPLEMENT printPreOrder public method";; // IMPLEMENT HERE
+    printPreOrder(root);
+    cout << std::endl; 
 }
 
 // recursive helper for printPreOrder()
 void IntBST::printPreOrder(Node *n) const {
-    cout << "IMPLEMENT printPreOrder private helper method"; // IMPLEMENT HERE
+    if (n != nullptr) {
+        cout << n->info; 
+        printPreOrder(n->left);
+        printPreOrder(n->right);
+    } // IMPLEMENT HERE
 }
 
 // print tree data in-order, with helper
 void IntBST::printInOrder() const {
-    cout << "IMPLEMENT printInOrder public method"; // IMPLEMENT HERE
+    printInOrder(root);
+    cout << std::endl;
 }
 void IntBST::printInOrder(Node *n) const {
-    cout << "IMPLEMENT IMPLEMENT printInOrder private helper method"; // IMPLEMENT HERE
+    if (n != nullptr) {
+        printInOrder(n->left);
+        cout << n->info;
+        printInOrder(n->right);
+    }
+    // IMPLEMENT HERE
 }
 
 // prints tree data post-order, with helper
 void IntBST::printPostOrder() const {
-    cout << "IMPLEMENT printPostOrder public method"; // IMPLEMENT HERE
+    printPostOrder(root);
+    cout << std::endl; // IMPLEMENT HERE
 }
 
 void IntBST::printPostOrder(Node *n) const {
-    cout << "IMPLEMENT printPostOrder private helper method";// IMPLEMENT HERE
+    if (n != nullptr) {
+        printPostOrder(n->left);
+        printPostOrder(n->right);
+        cout << n->info;
+    }
 }
 
 // return sum of values in tree
 int IntBST::sum() const {
-    return -1; // REPLACE THIS NON-SOLUTION
+    return sum(root);
 }
 
 // recursive helper for sum
@@ -71,7 +112,7 @@ int IntBST::sum(Node *n) const {
 
 // return count of values
 int IntBST::count() const {
-    return -1; // REPLACE THIS NON-SOLUTION
+    return count(root); // REPLACE THIS NON-SOLUTION
 }
 
 // recursive helper for count
