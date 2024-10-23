@@ -108,7 +108,10 @@ int IntBST::sum() const {
 
 // recursive helper for sum
 int IntBST::sum(Node *n) const {
-    return -1; // REPLACE THIS NON-SOLUTION
+     if (n == nullptr) {
+        return 0;  // Base case: an empty node contributes 0 to the sum
+    }
+    return n->info + sum(n->left) + sum(n->right);  // Add the value of the current node and recursively sum the left and right subtrees
 }
 
 // return count of values
@@ -118,7 +121,10 @@ int IntBST::count() const {
 
 // recursive helper for count
 int IntBST::count(Node *n) const {
-    return -1; // REPLACE THIS NON-SOLUTION
+    if (n == nullptr) {
+        return 0;  // Base case: an empty node contributes 0 to the count
+    }
+    return 1 + count(n->left) + count(n->right);  // Count the current node and recursively count the left and right subtrees
 }
 
 // IMPLEMENT THIS FIRST: returns the node for a given value or NULL if none exists
@@ -133,7 +139,7 @@ IntBST::Node* IntBST::getNodeFor(int value, Node* n) const{
 
 // returns true if value is in the tree; false if not
 bool IntBST::contains(int value) const {
-    return false; // REPLACE THIS NON-SOLUTION
+    return getNodeFor(value, root) != nullptr;
 }
 
 // returns the Node containing the predecessor of the given value
