@@ -67,7 +67,7 @@ void IntBST::printPreOrder() const {
 // recursive helper for printPreOrder()
 void IntBST::printPreOrder(Node *n) const {
     if (n != nullptr) {
-        cout << n->info; 
+        cout << n->info << " "; 
         printPreOrder(n->left);
         printPreOrder(n->right);
     } // IMPLEMENT HERE
@@ -78,6 +78,7 @@ void IntBST::printInOrder() const {
     printInOrder(root);
     cout << std::endl;
 }
+
 void IntBST::printInOrder(Node *n) const {
     if (n != nullptr) {
         printInOrder(n->left);
@@ -97,7 +98,7 @@ void IntBST::printPostOrder(Node *n) const {
     if (n != nullptr) {
         printPostOrder(n->left);
         printPostOrder(n->right);
-        cout << n->info;
+        cout << n->info << " ";
     }
 }
 
@@ -108,10 +109,10 @@ int IntBST::sum() const {
 
 // recursive helper for sum
 int IntBST::sum(Node *n) const {
-     if (n == nullptr) {
-        return 0;  // Base case: an empty node contributes 0 to the sum
+    if (n == nullptr) {
+        return 0; 
     }
-    return n->info + sum(n->left) + sum(n->right);  // Add the value of the current node and recursively sum the left and right subtrees
+    return n->info + sum(n->left) + sum(n->right);  
 }
 
 // return count of values
@@ -122,9 +123,9 @@ int IntBST::count() const {
 // recursive helper for count
 int IntBST::count(Node *n) const {
     if (n == nullptr) {
-        return 0;  // Base case: an empty node contributes 0 to the count
+        return 0; 
     }
-    return 1 + count(n->left) + count(n->right);  // Count the current node and recursively count the left and right subtrees
+    return 1 + count(n->left) + count(n->right); 
 }
 
 // IMPLEMENT THIS FIRST: returns the node for a given value or NULL if none exists
