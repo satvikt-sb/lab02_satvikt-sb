@@ -37,7 +37,7 @@ bool IntBST::insert(int value) {
     }
 }
 
-// recursive helper for insert (assumes n is never 0) - WORK ON IT
+// recursive helper for insert (assumes n is never 0)
 bool IntBST::insert(int value, Node *n) {
     if (value == n->info) {
         return false;
@@ -288,7 +288,7 @@ bool IntBST::remove(int value){
         }
         delete remove;
     }
-    else { 
+    else {//work on implementing 2 children case
         return true;
     }
 }
