@@ -137,7 +137,7 @@ IntBST::Node* IntBST::getNodeFor(int value, Node* n) const{
     }
     else if (n->info == value) {
         return n; 
-    } else if (value < n->info) {
+    } else if (n->info > value) {
         return getNodeFor(value, n->left); 
     } else {
         return getNodeFor(value, n->right); 
@@ -199,6 +199,7 @@ IntBST::Node* IntBST::getSuccessorNode(int value) const{
     }
     else if (current->right != nullptr){
         current = current->right;
+
         while (current->left != nullptr) {
             current = current->left;  
         }
