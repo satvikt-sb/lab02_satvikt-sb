@@ -37,7 +37,7 @@ bool IntBST::insert(int value) {
     }
 }
 
-// recursive helper for insert (assumes n is never 0)
+// recursive helper for insert (assumes n is never 0) - WORK ON IT
 bool IntBST::insert(int value, Node *n) {
     if (value == n->info) {
         return false;
@@ -135,7 +135,7 @@ IntBST::Node* IntBST::getNodeFor(int value, Node* n) const{
     if (n == nullptr) {
         return nullptr;  
     }
-    if (value == n->info) {
+    else if (n->info == value) {
         return n; 
     } else if (value < n->info) {
         return getNodeFor(value, n->left); 
@@ -146,82 +146,82 @@ IntBST::Node* IntBST::getNodeFor(int value, Node* n) const{
 
 // returns true if value is in the tree; false if not
 bool IntBST::contains(int value) const {
-    return getNodeFor(value, root) != nullptr;
+    if (getNodeFor(value, root) == nullptr) {
+        return false;
+    }
+    return true;
 }
 
 // returns the Node containing the predecessor of the given value
 IntBST::Node* IntBST::getPredecessorNode(int value) const{
     Node* current = getNodeFor(value, root);
-    if (current == nullptr) return nullptr;  // Value not found in the tree
 
-    // Case 1: If there is a left subtree, the predecessor is the maximum of that subtree
-    if (current->left != nullptr) {
+    if (current == nullptr) {
+        return nullptr;  
+    }
+
+    //
+    else if (current->left != nullptr) {
         current = current->left;
+
         while (current->right != nullptr) {
-            current = current->right;  // Find the maximum of the left subtree
+            current = current->right;  
         }
         return current;
     }
-
-    // Case 2: No left subtree, move up the tree to find the predecessor
-    Node* ancestor = root;
-    Node* predecessor = nullptr;
-    while (ancestor != current) {
-        if (value > ancestor->info) {
-            predecessor = ancestor;  // Update predecessor
-            ancestor = ancestor->right;
-        } else {
-            ancestor = ancestor->left;
+    else {
+        Node* parent = current->parent;
+        while (parent != nullptr && current == parent->left) {
+            current = parent;
+            parent = parent->parent;
         }
+        return parent;
     }
-    return predecessor;
 }
 
 // returns the predecessor value of the given value or 0 if there is none
 int IntBST::getPredecessor(int value) const{
-    Node* predNode = getPredecessorNode(value);
-    if (predNode != nullptr) {
-        return predNode->info;
+    Node* pred = getPredecessorNode(value);
+
+    if (pred == nullptr) {
+        return 0;
     } else {
-        return 0;  // No predecessor
+        return pred->info;
     }
 }
 
 // returns the Node containing the successor of the given value
 IntBST::Node* IntBST::getSuccessorNode(int value) const{
-  Node* current = getNodeFor(value, root);
-    if (current == nullptr) return nullptr;  // Value not found in the tree
+    Node* current = getNodeFor(value, root);
 
-    // Case 1: If there is a right subtree, the successor is the minimum of that subtree
-    if (current->right != nullptr) {
+    if (current == nullptr) {
+        return nullptr; 
+    }
+    else if (current->right != nullptr){
         current = current->right;
         while (current->left != nullptr) {
-            current = current->left;  // Find the minimum of the right subtree
+            current = current->left;  
         }
         return current;
     }
-
-    // Case 2: No right subtree, move up the tree to find the successor
-    Node* ancestor = root;
-    Node* successor = nullptr;
-    while (ancestor != current) {
-        if (value < ancestor->info) {
-            successor = ancestor;  // Update successor
-            ancestor = ancestor->left;
-        } else {
-            ancestor = ancestor->right;
+    else {
+        Node* parent = current->parent;
+        while (parent != nullptr && current == parent->right) {
+            current = parent;
+            parent = parent->parent;
         }
+        return parent;
     }
-    return successor;
 }
 
 // returns the successor value of the given value or 0 if there is none
 int IntBST::getSuccessor(int value) const{
-    Node* succNode = getSuccessorNode(value);
-    if (succNode != nullptr) {
-        return succNode->info;
+    Node* succ = getSuccessorNode(value);
+
+    if (succ == nullptr) {
+        return 0;
     } else {
-        return 0;  // No successor
+        return succ->info;
     }
 }
 
