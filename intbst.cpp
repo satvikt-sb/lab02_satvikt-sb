@@ -288,15 +288,9 @@ bool IntBST::remove(int value){
         }
         delete remove;
     }
-    //2 children
-    else{
-        Node* succ = getSuccessorNode(remove->info);
-
-        int succ_val = succ->info;
-        
-        remove->info = succ_val;
+    else { 
+        return true;
     }
-    return true;
 }
     
 
