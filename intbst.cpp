@@ -189,12 +189,40 @@ int IntBST::getPredecessor(int value) const{
 
 // returns the Node containing the successor of the given value
 IntBST::Node* IntBST::getSuccessorNode(int value) const{
-  
+  Node* current = getNodeFor(value, root);
+    if (current == nullptr) return nullptr;  // Value not found in the tree
+
+    // Case 1: If there is a right subtree, the successor is the minimum of that subtree
+    if (current->right != nullptr) {
+        current = current->right;
+        while (current->left != nullptr) {
+            current = current->left;  // Find the minimum of the right subtree
+        }
+        return current;
+    }
+
+    // Case 2: No right subtree, move up the tree to find the successor
+    Node* ancestor = root;
+    Node* successor = nullptr;
+    while (ancestor != current) {
+        if (value < ancestor->info) {
+            successor = ancestor;  // Update successor
+            ancestor = ancestor->left;
+        } else {
+            ancestor = ancestor->right;
+        }
+    }
+    return successor;
 }
 
 // returns the successor value of the given value or 0 if there is none
 int IntBST::getSuccessor(int value) const{
-    return -1; // REPLACE THIS NON-SOLUTION
+    Node* succNode = getSuccessorNode(value);
+    if (succNode != nullptr) {
+        return succNode->info;
+    } else {
+        return 0;  // No successor
+    }
 }
 
 ////remove is hardest implementation; save for last
