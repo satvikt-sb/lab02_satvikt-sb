@@ -170,12 +170,17 @@ IntBST::Node* IntBST::getPredecessorNode(int value) const{
         return current;
     }
     else {
-        Node* parent = current->parent;
-        while (parent != nullptr && current == parent->left) {
-            current = parent;
-            parent = parent->parent;
+        Node* parent = root;
+        Node* predecessor = nullptr;
+        while (parent != nullptr) {
+            if (value > parent->info) {
+                predecessor = parent;
+                parent = parent->right;
+            } else {
+                parent = parent->left;
+            }
         }
-        return parent;
+        return predecessor;
     }
 }
 
@@ -206,12 +211,17 @@ IntBST::Node* IntBST::getSuccessorNode(int value) const{
         return current;
     }
     else {
-        Node* parent = current->parent;
-        while (parent != nullptr && current == parent->right) {
-            current = parent;
-            parent = parent->parent;
+        Node* parent = root;
+        Node* successor = nullptr;
+        while (parent != nullptr) {
+            if (value < parent->info) {
+                successor = parent;  
+                parent = parent->left;
+            } else {
+                parent = parent->right;
+            }
         }
-        return parent;
+    return successor;
     }
 }
 
