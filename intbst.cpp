@@ -293,9 +293,7 @@ bool IntBST::remove(int value){
         Node* succ = getSuccessorNode(remove->info);
 
         int succ_val = succ->info;
-
-        remove(succ_val);
-
+        
         remove->info = succ_val;
     }
     return true;
