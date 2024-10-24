@@ -152,24 +152,23 @@ bool IntBST::contains(int value) const {
 // returns the Node containing the predecessor of the given value
 IntBST::Node* IntBST::getPredecessorNode(int value) const{
     Node* current = getNodeFor(value, root);
-    if (current == nullptr) {
-        return nullptr;
-    }
+    if (current == nullptr) return nullptr;  // Value not found in the tree
 
-    //left subtree, predecessor = max
+    // Case 1: If there is a left subtree, the predecessor is the maximum of that subtree
     if (current->left != nullptr) {
         current = current->left;
         while (current->right != nullptr) {
-            current = current->right; 
+            current = current->right;  // Find the maximum of the left subtree
         }
         return current;
     }
 
+    // Case 2: No left subtree, move up the tree to find the predecessor
     Node* ancestor = root;
     Node* predecessor = nullptr;
     while (ancestor != current) {
         if (value > ancestor->info) {
-            predecessor = ancestor; 
+            predecessor = ancestor;  // Update predecessor
             ancestor = ancestor->right;
         } else {
             ancestor = ancestor->left;
@@ -180,36 +179,17 @@ IntBST::Node* IntBST::getPredecessorNode(int value) const{
 
 // returns the predecessor value of the given value or 0 if there is none
 int IntBST::getPredecessor(int value) const{
-    return -1; // REPLACE THIS NON-SOLUTION
+    Node* predNode = getPredecessorNode(value);
+    if (predNode != nullptr) {
+        return predNode->info;
+    } else {
+        return 0;  // No predecessor
+    }
 }
 
 // returns the Node containing the successor of the given value
 IntBST::Node* IntBST::getSuccessorNode(int value) const{
-      Node* current = getNodeFor(value, root);
-    if (current == nullptr) {
-        return nullptr;  
-    }
-    
-    //right subtree, successor = min
-    if (current->right != nullptr) {
-        current = current->right;
-        while (current->left != nullptr) {
-            current = current->left;  
-        return current;
-    }
-
-    //no right subtree
-    Node* ancestor = root;
-    Node* successor = nullptr;
-    while (ancestor != current) {
-        if (value < ancestor->info) {
-            successor = ancestor; 
-            ancestor = ancestor->left;
-        } else {
-            ancestor = ancestor->right;
-        }
-    }
-    return successor;
+  
 }
 
 // returns the successor value of the given value or 0 if there is none
